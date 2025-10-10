@@ -1,4 +1,3 @@
-
 <h1>
     <p align="center">
       <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Exo&weight=700&size=35&duration=2500&pause=1000&color=F7F7F7&center=true&vCenter=true&random=false&width=500&height=60&lines=Hi+there+%F0%9F%91%8B%F0%9F%8F%BB;Welcome+to+my+Github+Page" alt="Typing SVG" />
@@ -7,36 +6,60 @@
 </h1>
 
 
-<h1 align="center">I'm abhijith motty</h1>
-<h3 align="center">A passionate Cybersecurity Researcher from India</h3>
+<h1 align="center">Hi 👋, I'm Abhijith Motty</h1>
+<h3 align="center">🔐 Cybersecurity Analyst | VAPT | SIEM | Forensics | Security Researcher</h3>
 
-<p align="left"> <img src="https://komarev.com/ghpvc/?username=abhijithmotty&label=Profile%20views&color=0e75b6&style=flat" alt="abhijithmotty" /> </p>
+<p align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira%20Code&size=22&pause=1000&center=true&width=500&lines=%20Cybersecurity%20Analyst;%20%20Bug%20Bounty%20Hunter" alt="Typing SVG" />
 
-<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=abhijithmotty" alt="abhijithmotty" /></a> </p>
-
-<p align="left"> <a href="https://twitter.com/primeaetheron" target="blank"><img src="https://img.shields.io/twitter/follow/primeaetheron?logo=twitter&style=for-the-badge" alt="primeaetheron" /></a> </p>
-
-- 🔭 I’m currently working on **developing my skills in Pen-testing**
-
-- 🌱 I’m currently learning **WebApplication Pen-testing, Bash Scripting**
-
-- 👯 I’m looking to collaborate on **cyber security**
-
-- 📫 How to reach me **abhijithmotty@gmail.com**
-
-<h3 align="left">Connect with me:</h3>
-<p align="left">
-<a href="https://twitter.com/primeaetheron" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/twitter.svg" alt="primeaetheron" height="30" width="40" /></a>
-<a href="https://linkedin.com/in/abhijithmotty" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="abhijithmotty" height="30" width="40" /></a>
-<a href="https://instagram.com/abhijithmotty" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="abhijithmotty" height="30" width="40" /></a>
-<a href="https://medium.com/@aetheron" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/medium.svg" alt="@aetheron" height="30" width="40" /></a>
 </p>
 
-<h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> </p>
 
-<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=abhijithmotty&show_icons=true&locale=en&layout=compact" alt="abhijithmotty" /></p>
+---
 
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=abhijithmotty&show_icons=true&locale=en" alt="abhijithmotty" /></p>
+### 📊 GitHub Stats
 
-<p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=abhijithmotty&" alt="abhijithmotty" /></p>
+<p align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username=abhijithmotty&show_icons=true&theme=radical" alt="GitHub Stats" />
+ <img align="right" height="150" src="https://i.imgflip.com/65efzo.gif"  />
+</p>
+
+
+---
+
+### 📫 Connect With Me
+
+<p align="center">
+  <a href="mailto:abhijithmotty@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=flat-square&logo=gmail&logoColor=white"></a>
+  <a href="https://linkedin.com/in/abhijithmotty" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin"></a>
+  <a href="https://discordapp.com/users/aethero_n"><img src="https://img.shields.io/badge/Discord-%237289DA.svg?style=flat-square&logo=discord&logoColor=white"></a>
+</p>
+
+
+-----
+
+
+![Snake animation](https://github.com/abhijithmotty/snk/raw/output/github-contribution-grid-snake.svg)
+
+
+---
+
+### 💻 Tech Stack
+
+<p align="left">
+  <img src="https://img.shields.io/badge/Linux-100000?style=flat-square&logo=linux&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Burpsuite-FA6423?style=flat-square&logo=burpsuite&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Metasploit-000000?style=flat-square&logo=metasploit&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Nmap-2C3539?style=flat-square&logo=nmap&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Splunk-000000?style=flat-square&logo=splunk&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white"/>
+</p>
+
+---
+
+### ⚡ Fun Fact  
+> “The quieter you become, the more you hear. In cybersecurity, every silence tells a story.”
+
+---
+⭐ **Thanks for stopping by!** Feel free to explore my repositories, fork tools, or collaborate on new ideas.�
