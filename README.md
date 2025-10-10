@@ -7,7 +7,7 @@
 
 
 <h1 align="center">Hi 👋, I'm Abhijith Motty</h1>
-<h3 align="center">🔐 Cybersecurity Analyst | VAPT | SIEM | Forensics | Security Researcher</h3>
+<h3 align="center">🔐 Cybersecurity Analyst | VAPT | Cyber Forensics | Security Researcher</h3>
 
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Fira%20Code&size=22&pause=1000&center=true&width=500&lines=%20Cybersecurity%20Analyst;%20%20Bug%20Bounty%20Hunter" alt="Typing SVG" />
