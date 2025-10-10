@@ -1,4 +1,13 @@
-<h1 align="center">Hi 👋, I'm abhijith motty</h1>
+
+<h1>
+    <p align="center">
+      <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.demolab.com?font=Exo&weight=700&size=35&duration=2500&pause=1000&color=F7F7F7&center=true&vCenter=true&random=false&width=500&height=60&lines=Hi+there+%F0%9F%91%8B%F0%9F%8F%BB;Welcome+to+my+Github+Page" alt="Typing SVG" />
+      </a>
+    </p>
+</h1>
+
+
+<h1 align="center">I'm abhijith motty</h1>
 <h3 align="center">A passionate Cybersecurity Researcher from India</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=abhijithmotty&label=Profile%20views&color=0e75b6&style=flat" alt="abhijithmotty" /> </p>
