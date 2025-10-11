@@ -47,7 +47,9 @@
 ---
 
 
-![Snake animation](https://github.com/abhijithmotty/snk/raw/output/github-contribution-grid-snake.svg)
+<!--![Snake animation](https://github.com/abhijithmotty/snk/raw/output/github-contribution-grid-snake.svg)-->
+![Snake animation](https://github.com/abhijithmotty/snk/raw/output/github-contribution-grid-snake-dark.svg)
+
 
 
 ---
