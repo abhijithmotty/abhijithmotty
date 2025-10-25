@@ -39,7 +39,7 @@
 ### 📫 Connect With Me
 <p align="center">
   <a href="mailto:abhijithmotty@gmail.com"><img src="https://img.shields.io/badge/Gmail-D14836?style=flat-square&logo=gmail&logoColor=white"></a>
-  <a href="https://linkedin.com/in/abhijithmotty" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin"></a>
+  <a href="https://linkedin.com/in/abhijith-motty" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=linkedin"></a>
   <a href="https://discordapp.com/users/aethero_n"><img src="https://img.shields.io/badge/Discord-%237289DA.svg?style=flat-square&logo=discord&logoColor=white"></a>
 </p>
 
