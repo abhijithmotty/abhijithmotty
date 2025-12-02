@@ -18,14 +18,16 @@
 ---
 
 
+<!--
 <h3>📊 GitHub Stats</h3>
 <div align="center">
   <img 
     src="https://github-readme-stats.vercel.app/api?username=abhijithmotty&show_icons=true&theme=radical" 
-    alt="GitHub Stats"
-    height="180px"
+   alt="GitHub Stats"
+   height="180px"
   />
 <img align="right"
+   
     src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExcjY4Z2x4eG0zMnQ1aHI0ams2MmVudm90cXlvdHQ5ZXdxczRsaTZ1ZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lHTTeBRVbwqGs/giphy.gif" 
     alt="Anime GIF"
     height="180px"
@@ -34,7 +36,7 @@
 </div>
 
 ---
-
+--> 
 
 ### 📫 Connect With Me
 <p align="center">
