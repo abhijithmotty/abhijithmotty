@@ -64,8 +64,8 @@
   <img src="https://img.shields.io/badge/Metasploit-000000?style=flat-square&logo=metasploit&logoColor=white"/>
   <img src="https://img.shields.io/badge/Wireshark-1679A7?style=flat-square&logo=wireshark&logoColor=white"/>
   <img src="https://img.shields.io/badge/Nmap-2C3539?style=flat-square&logo=nmap&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Splunk-000000?style=flat-square&logo=splunk&logoColor=white"/>
-  <img src="https://img.shields.io/badge/ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white"/>
+<!--  <img src="https://img.shields.io/badge/Splunk-000000?style=flat-square&logo=splunk&logoColor=white"/>
+  <img src="https://img.shields.io/badge/ElasticSearch-005571?style=flat-square&logo=elasticsearch&logoColor=white"/> -->
 </p>
 
 ---
