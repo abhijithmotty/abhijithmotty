@@ -1,1 +1,620 @@
-wwee
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>guest@abhijith-motty: ~/portfolio</title>
+https://fonts.googleapis.com
+https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap
+<style>
+  :root {
+    --bg: #1e1e2e;
+    --bg-dark: #181825;
+    --fg: #cdd6f4;
+    --muted: #6c7086;
+    --red: #f38ba8;
+    --green: #a6e3a1;
+    --yellow: #f9e2af;
+    --blue: #89b4fa;
+    --mauve: #cba6f7;
+    --sapphire: #74c7ec;
+    --pink: #f5c2e7;
+    --white: #ffffff;
+    --accent: var(--red);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background:
+      radial-gradient(ellipse at top, #313244 0%, #11111b 100%);
+    font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+    color: var(--fg);
+    overflow: hidden;
+  }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  /* ---------- Terminal window ---------- */
+  .window {
+    width: min(1200px, 100%);
+    height: min(760px, 95vh);
+    background: var(--bg);
+    border-radius: 12px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .titlebar {
+    height: 34px;
+    background: #11111b;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .dots { display: flex; gap: 8px; }
+  .dot { width: 12px; height: 12px; border-radius: 50%; cursor: pointer; }
+  .dot.red   { background: #ff5f57; }
+  .dot.amber { background: #febc2e; }
+  .dot.green { background: #28c840; }
+  .title {
+    position: absolute; left: 0; right: 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    pointer-events: none;
+  }
+
+  /* ---------- Split layout ---------- */
+  .split {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 0;
+  }
+  .pane {
+    padding: 20px 22px;
+    overflow-y: auto;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+  .pane.left { border-right: 1px solid rgba(255,255,255,0.04); }
+  .pane::-webkit-scrollbar { width: 6px; }
+  .pane::-webkit-scrollbar-thumb { background: #313244; border-radius: 3px; }
+
+  /* ---------- ASCII art ---------- */
+  .cmd-line { color: var(--fg); margin-bottom: 8px; }
+  .prompt-user { color: var(--red); font-weight: 600; }
+  .prompt-path { color: var(--blue); }
+  .ascii {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 6.5px;
+    line-height: 6.5px;
+    letter-spacing: 0;
+    white-space: pre;
+    color: var(--fg);
+    margin: 6px 0 14px;
+    text-shadow: 0 0 1px currentColor;
+    transition: color 0.4s;
+  }
+  .ascii.glitch { animation: glitch 0.25s steps(2) 1; }
+  @keyframes glitch {
+    0%   { transform: translate(0,0);  filter: hue-rotate(0deg); }
+    25%  { transform: translate(-2px,1px); filter: hue-rotate(90deg); }
+    50%  { transform: translate(2px,-1px); filter: hue-rotate(180deg); }
+    75%  { transform: translate(-1px,2px); filter: hue-rotate(270deg); }
+    100% { transform: translate(0,0); filter: hue-rotate(0deg); }
+  }
+  .quote {
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px dashed rgba(255,255,255,0.08);
+    font-size: 12.5px;
+  }
+
+  /* ---------- Right terminal ---------- */
+  .term-line { white-space: pre-wrap; word-break: break-word; }
+  .term-out  { color: var(--fg); margin-bottom: 2px; }
+  .k { color: var(--red); font-weight: 600; }
+  .v { color: var(--fg); }
+  .sep { color: var(--muted); }
+  .hr { color: var(--muted); margin: 4px 0 10px; }
+  .swatches { display: flex; gap: 6px; margin: 14px 0; }
+  .sw { width: 18px; height: 18px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.15); }
+  .link { color: var(--sapphire); text-decoration: none; border-bottom: 1px dashed transparent; }
+  .link:hover { border-bottom-color: var(--sapphire); }
+
+  /* ---------- Input line ---------- */
+  .input-row {
+    display: flex; align-items: center; gap: 6px;
+    margin-top: 6px;
+  }
+  .input-row input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--fg);
+    font: inherit;
+    caret-color: var(--red);
+  }
+  .cursor {
+    display: inline-block;
+    width: 8px; height: 15px;
+    background: var(--fg);
+    animation: blink 1s steps(2) infinite;
+    vertical-align: middle;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- Matrix rain ---------- */
+  #matrix {
+    position: fixed; inset: 0;
+    background: #000;
+    z-index: 999;
+    display: none;
+  }
+  #matrix canvas { width: 100%; height: 100%; display: block; }
+  .matrix-hint {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    color: #0f0; font-family: 'JetBrains Mono', monospace; z-index: 1000;
+    text-shadow: 0 0 8px #0f0;
+  }
+
+  @media (max-width: 800px) {
+    .split { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+    .pane.left { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .ascii { font-size: 4.5px; line-height: 4.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="window" id="win">
+  <div class="titlebar">
+    <div class="dots">
+      <span class="dot red"    onclick="closeWin()"></span>
+      <span class="dot amber"  onclick="alert('Minimize is for the weak.')"></span>
+      <span class="dot green"  onclick="document.documentElement.requestFullscreen && document.documentElement.requestFullscreen()"></span>
+    </div>
+    <div class="title" id="winTitle">guest@abhijith-motty: ~/portfolio</div>
+  </div>
+
+  <div class="split">
+    <!-- LEFT PANE: ASCII avatar -->
+    <div class="pane left">
+      <div class="cmd-line">
+        <span class="prompt-user">guest@abhijith-motty</span><span class="sep">:</span><span class="prompt-path">~</span><span class="sep">$</span>
+        cat avatar.png | ascii-render
+      </div>
+      <pre class="ascii" id="ascii"></pre>
+      <div class="quote">"The quieter you become, the more you hear. In cybersecurity, every silence tells a story."</div>
+    </div>
+
+    <!-- RIGHT PANE: Interactive terminal -->
+    <div class="pane right" id="term" onclick="focusInput()">
+      <!-- output injected here -->
+    </div>
+  </div>
+</div>
+
+<div id="matrix"><canvas id="mcanvas"></canvas></div>
+<div class="matrix-hint" id="mhint" style="display:none">press ESC to exit the matrix</div>
+
+<script>
+/* ============================================================
+   ABHIJITH MOTTY — Interactive Terminal Portfolio
+   ============================================================ */
+
+const USER = "guest@abhijith-motty";
+const HOST = "~";
+
+/* -------- ASCII AVATAR FRAMES (subtle animation) -------- */
+/* This is a compact ASCII rendering approximating the portrait.
+   Multiple frames create a breathing / blinking effect. */
+
+const asciiBase = [
+"                    ......::::::::.....                     ",
+"               .:-=+**###%%%%%%##**+=-:.                    ",
+"           .:=*#%@@@@@@@@@@@@@@@@@@@%#*=:.                  ",
+"         :=*%@@@@@@@@@@@@@@@@@@@@@@@@@@%*=:                 ",
+"       :+#@@@@@@@@%%##****####%%%@@@@@@@@#+:                ",
+"     .+%@@@@@@%*+=:.            .:-=+*#%@@@%+.              ",
+"    :#@@@@@%*=.       ...::::...       .-+*%@@#:            ",
+"   -%@@@@%+.     .-+*#%%@@@@@@%%#*=:.     .=*%@@=           ",
+"  =%@@@%+.    :=*%@@@@@@@@@@@@@@@@@%*=:    .+#@@%=          ",
+" -%@@@#-   .=#@@@@@@@@@@@@@@@@@@@@@@@@#=.   .-*@@%-         ",
+" #@@@#:  .+%@@@@%##*+==------==+**##%@@@%+.  .-#@@#         ",
+":%@@%-  .*@@@%*=:.                  .:=*%@@*.  .-%@@:       ",
+"=@@@+  :#@@%+.                          .+%@@#:  .+@@=      ",
+"*@@%. -%@@#:      ##            ##       .:*@@%-  .%@@      ",
+"%@@+ :%@@*.      ###           ###        .:+@@%: .*@@%     ",
+"%@@= *@@%:      ####          ####          -@@@* :=@@%     ",
+"%@@= *@@#      #####         #####          .%@@# :=@@%     ",
+"*@@# -@@@:                                  :%@@= .%@@*     ",
+"=@@@- =@@%.       .:.                    ..:%@@+  =@@@=     ",
+" %@@#. *@@%-        ###############-    .-%@@#: .*@@%       ",
+" -%@@#. =%@@#:        :=*########+:   .=#@@%=. .*@@%-       ",
+"  =%@@#: .=#@@%*-.                 .-*%@@#=.  :*@@%=        ",
+"   -%@@@*: .-+#%@@@%#*+==------==+*#@@@#+:  .+%@@%-         ",
+"    :#@@@%+:   .:-=+**#%%%%%%%%%%##*+=-.  .=*@@@#:          ",
+"     .+%@@@@#+-:.                     .:-+#@@@@%+.          ",
+"       :+#@@@@@@%#*+=-::.......::-=+*#%@@@@@@#+:            ",
+"         :=*%@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*=:               ",
+"           .:=*#%@@@@@@@@@@@@@@@@@@@@%#*=:.                 ",
+"               .:-=+*##%%%%%%%%%##*+=-:.                    ",
+"                    ......::::::::.....                     "
+];
+
+/* Frame variations for animation (blinking eyes / breathing) */
+function makeFrame(state) {
+  let frame = asciiBase.map(l => l);
+  // eye blink on lines 13-16 (index roughly)
+  if (state === "blink") {
+    frame[13] = "*@@%. -%@@#:      ==            ==       .:*@@%-  .%@@      ";
+    frame[14] = "%@@+ :%@@*.      ===           ===        .:+@@%: .*@@%     ";
+  }
+  if (state === "glance") {
+    frame[13] = "*@@%. -%@@#:       ##            ##      .:*@@%-  .%@@      ";
+    frame[14] = "%@@+ :%@@*.       ###           ###       .:+@@%: .*@@%     ";
+  }
+  return frame.join("\n");
+}
+
+const asciiEl = document.getElementById("ascii");
+let frameIdx = 0;
+const frameCycle = ["normal","normal","normal","normal","normal","glance","normal","normal","blink","normal","normal","normal","normal","glance","normal","normal","normal","normal","blink"];
+function tick() {
+  const s = frameCycle[frameIdx % frameCycle.length];
+  asciiEl.textContent = makeFrame(s);
+  frameIdx++;
+}
+tick();
+setInterval(tick, 350);
+
+/* Occasional glitch effect */
+setInterval(() => {
+  asciiEl.classList.add("glitch");
+  setTimeout(() => asciiEl.classList.remove("glitch"), 300);
+}, 7000);
+
+/* Color pulse */
+const accentColors = ["#f38ba8","#cba6f7","#89b4fa","#a6e3a1","#f9e2af","#74c7ec"];
+let cIdx = 0;
+setInterval(() => {
+  cIdx = (cIdx + 1) % accentColors.length;
+  asciiEl.style.color = accentColors[cIdx];
+}, 2500);
+
+/* ============================================================
+   TERMINAL LOGIC
+   ============================================================ */
+
+const term = document.getElementById("term");
+const history = [];
+let histPos = -1;
+
+function esc(s){ return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function promptHTML() {
+  return `<span class="prompt-user">${USER}</span><span class="sep">:</span><span class="prompt-path">${HOST}</span><span class="sep">$</span> `;
+}
+
+function print(html) {
+  const div = document.createElement("div");
+  div.className = "term-line term-out";
+  div.innerHTML = html;
+  term.insertBefore(div, inputRow);
+  term.scrollTop = term.scrollHeight;
+}
+
+function printCommand(cmd) {
+  const div = document.createElement("div");
+  div.className = "term-line";
+  div.innerHTML = promptHTML() + esc(cmd);
+  term.insertBefore(div, inputRow);
+}
+
+/* -------- Commands -------- */
+
+const commands = {
+  help: () => `Available commands:
+  <span class="k">help</span>       — show this list
+  <span class="k">whoami</span>     — who am I?
+  <span class="k">about</span>      — short bio
+  <span class="k">fastfetch</span>  — show system info card
+  <span class="k">neofetch</span>   — alias for fastfetch
+  <span class="k">skills</span>     — technical skills
+  <span class="k">tools</span>      — tools of the trade
+  <span class="k">languages</span>  — programming languages
+  <span class="k">projects</span>   — selected projects
+  <span class="k">socials</span>    — where to find me
+  <span class="k">contact</span>    — get in touch
+  <span class="k">quote</span>      — random cyber wisdom
+  <span class="k">date</span>       — current date/time
+  <span class="k">echo &lt;text&gt;</span> — echo something back
+  <span class="k">ls</span>         — list files
+  <span class="k">cat &lt;file&gt;</span>  — read a file
+  <span class="k">theme &lt;n&gt;</span>   — change accent (red|blue|green|mauve|yellow|pink)
+  <span class="k">matrix</span>     — enter the matrix
+  <span class="k">sudo</span>       — try it 😉
+  <span class="k">banner</span>     — show the banner
+  <span class="k">clear</span>      — clear the screen
+  <span class="k">exit</span>       — say goodbye`,
+
+  whoami: () => `<span class="k">Abhijith Motty</span> — Cybersecurity Analyst
+Based in Kerala, India · always learning, always curious.`,
+
+  about: () => `I'm a cybersecurity analyst focused on <span class="k">VAPT</span>,
+<span class="k">cyber forensics</span> and <span class="k">security research</span>.
+I break things thoughtfully, document obsessively, and
+believe that great security is 90% curiosity + 10% caffeine.`,
+
+  fastfetch: () => renderFastfetch(),
+  neofetch:  () => renderFastfetch(),
+
+  skills: () => `<span class="k">Core:</span>       Web App Pentesting, VAPT, OWASP Top 10, API Security
+<span class="k">Forensics:</span>  Disk / Memory / Network artifact analysis
+<span class="k">Research:</span>   CVE hunting, payload crafting, threat intel
+<span class="k">Standards:</span>  OWASP ASVS, CVSS v4.0, MITRE ATT&amp;CK`,
+
+  tools: () => `<span class="k">Offensive:</span>   Burp Suite Pro, Metasploit, Nmap, sqlmap, ffuf, nuclei
+<span class="k">Recon:</span>       amass, subfinder, httpx, gau
+<span class="k">Forensics:</span>   Wireshark, Volatility, Autopsy, FTK Imager
+<span class="k">Everyday:</span>    vim, VS Code, alacritty, tmux, zsh`,
+
+  languages: () => `<span class="k">Python</span>  ████████████████░░░░  fluent — automation & tooling
+<span class="k">Bash</span>    ██████████████░░░░░░  scripting &amp; recon glue
+<span class="k">C</span>       ██████████░░░░░░░░░░  low-level curiosity
+<span class="k">JS/TS</span>   ████████░░░░░░░░░░░░  for the web attack surface`,
+
+  projects: () => `<span class="k">1.</span> <span class="v">Broken Crystals</span> — full pentest walkthrough &amp; report
+<span class="k">2.</span> <span class="v">RAP Validation</span>   — recon &amp; assessment pipeline
+<span class="k">3.</span> <span class="v">PortSwigger Labs</span> — path traversal, IDOR, SSTI, SQLi, XXE
+<span class="k">4.</span> <span class="v">DIY Australia</span>   — external app security testing
+type '<span class="k">cat readme</span>' for the full story.`,
+
+  socials: () => `<span class="k">GitHub:</span>   <a class="link" href="https://github.com/abhijithmotty" target="_blankkedin.com/in/abhijithmotty</a>
+<span class="k">Gmail:</span>    <a class="link" href="mailto:abhijith@exampleom</a>
+<span class="k">Discord:</span>  abhijith.motty`,
+
+  contact: () => `Best reached via email or LinkedIn.
+Drop me a line — I read everything, I reply to most.
+type '<span class="k">socials</span>' for links.`,
+
+  quote: () => {
+    const q = [
+      `"The quieter you become, the more you hear."`,
+      `"Security is a process, not a product."  — Bruce Schneier`,
+      `"Amateurs hack systems, professionals hack people."`,
+      `"There is no patch for human curiosity."`,
+      `"If you think technology can solve your security problems, then you don't understand the problems and you don't understand the technology."`
+    ];
+    return `<span class="v" style="font-style:italic;color:var(--muted)">${q[Math.floor(Math.random()*q.length)]}</span>`;
+  },
+
+  date: () => new Date().toString(),
+
+  echo: (args) => esc(args.join(" ")),
+
+  ls: () => `about.txt   projects/   skills.md   readme   avatar.png   secrets/`,
+
+  cat: (args) => {
+    const f = (args[0] || "").toLowerCase();
+    switch (f) {
+      case "about.txt":  return commands.about();
+      case "skills.md":  return commands.skills();
+      case "readme":     return `# Abhijith Motty
+Cybersecurity analyst. VAPT · Forensics · Research.
+Reach out via 'socials'. Type 'help' for the full command list.`;
+      case "avatar.png": return `<span class="sep">(binary data — try 'cat avatar.png | ascii-render' 👈 already done on the left)</span>`;
+      case "secrets/":
+      case "secrets":    return `<span class="k">nice try</span> 😉  permission denied.`;
+      case "":           return `cat: missing operand. try '<span class="k">ls</span>' first.`;
+      default:           return `cat: ${esc(f)}: No such file or directory`;
+    }
+  },
+
+  theme: (args) => {
+    const map = { red:"#f38ba8", blue:"#89b4fa", green:"#a6e3a1", mauve:"#cba6f7", yellow:"#f9e2af", pink:"#f5c2e7" };
+    const t = (args[0] || "").toLowerCase();
+    if (!map[t]) return `theme: unknown color. try: ${Object.keys(map).join(", ")}`;
+    document.documentElement.style.setProperty("--red", map[t]);
+    document.documentElement.style.setProperty("--accent", map[t]);
+    return `theme set to <span class="k">${t}</span>`;
+  },
+
+  sudo: () => `[sudo] password for guest: <br>Sorry, user guest is not in the sudoers file. This incident will be reported. 👮`,
+
+  matrix: () => { startMatrix(); return `entering the matrix... (press ESC to exit)`; },
+
+  banner: () => `<span style="color:var(--red)">
+    _    _     _     _  _ _ _   _     
+   / \\  | |__ | |__ (_)(_|_) |_| |__  
+  / _ \\ | '_ \\| '_ \\| || | | __| '_ \\ 
+ / ___ \\| |_) | | | | || | | |_| | | |
+/_/   \\_\\_.__/|_| |_|_|/ |_|\\__|_| |_|
+                     |__/             
+</span><span class="sep">   cybersecurity · vapt · forensics</span>`,
+
+  clear: () => { clearTerm(); return null; },
+
+  exit: () => `logout
+<span class="sep">Connection to abhijith-motty closed.</span>
+<span class="sep">(refresh to reconnect)</span>`
+};
+
+/* -------- fastfetch renderer -------- */
+function renderFastfetch() {
+  return `<span class="k">${USER}</span>
+<span class="hr">─────────────────────────────</span>
+<span class="k">OS:</span>        Kali GNU/Linux Rolling x86_64
+<span class="k">Host:</span>      github.com/abhijithmotty
+<span class="k">Kernel:</span>    6.6.9-amd64
+<span class="k">Shell:</span>     zsh 5.9
+<span class="k">Uptime:</span>    3+ yrs in cybersecurity
+<span class="k">Role:</span>      Cybersecurity Analyst
+<span class="k">Focus:</span>     VAPT · Cyber Forensics · Sec Research
+<span class="k">Languages:</span> Python, Bash, C
+<span class="k">Tools:</span>     Burp Suite, Metasploit, Wireshark, Nmap
+<span class="k">Editor:</span>    vim / VS Code
+<span class="k">Terminal:</span>  alacritty
+<span class="k">Status:</span>    Always learning, always curious
+
+<span class="k">Socials:</span>   LinkedIn · Gmail · Discord
+<div class="swatches">
+  <span class="sw" style="background:#1e1e2e"></span>
+  <span class="sw" style="background:#f38ba8"></span>
+  <span class="sw" style="background:#a6e3a1"></span>
+  <span class="sw" style="background:#f9e2af"></span>
+  <span class="sw" style="background:#89b4fa"></span>
+  <span class="sw" style="background:#cba6f7"></span>
+  <span class="sw" style="background:#74c7ec"></span>
+  <span class="sw" style="background:#ffffff"></span>
+</div>`;
+}
+
+/* -------- Input handling -------- */
+
+const inputRow = document.createElement("div");
+inputRow.className = "input-row";
+inputRow.innerHTML = promptHTML() + `<input id="cmdInput" autocomplete="off" autofocus spellcheck="false"/>`;
+term.appendChild(inputRow);
+
+const input = document.getElementById("cmdInput");
+
+function focusInput() { input.focus(); }
+
+function clearTerm() {
+  [...term.querySelectorAll(".term-line")].forEach(n => n.remove());
+}
+
+function runCommand(raw) {
+  const trimmed = raw.trim();
+  if (!trimmed) { printCommand(""); return; }
+  printCommand(trimmed);
+  history.push(trimmed);
+  histPos = history.length;
+
+  const [cmd, ...args] = trimmed.split(/\s+/);
+  const key = cmd.toLowerCase();
+
+  if (commands[key]) {
+    const out = commandsargs;
+    if (out !== null && out !== undefined) print(out);
+  } else {
+    print(`<span class="k">${esc(cmd)}</span>: command not found. type '<span class="k">help</span>'`);
+  }
+}
+
+input.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const v = input.value;
+    input.value = "";
+    runCommand(v);
+  } else if (e.key === "ArrowUp") {
+    if (histPos > 0) { histPos--; input.value = history[histPos]; }
+    e.preventDefault();
+  } else if (e.key === "ArrowDown") {
+    if (histPos < history.length - 1) { histPos++; input.value = history[histPos]; }
+    else { histPos = history.length; input.value = ""; }
+    e.preventDefault();
+  } else if (e.key === "Tab") {
+    e.preventDefault();
+    const cur = input.value.trim();
+    const opts = Object.keys(commands).filter(c => c.startsWith(cur));
+    if (opts.length === 1) input.value = opts[0] + " ";
+    else if (opts.length > 1) print(opts.join("   "));
+  } else if (e.ctrlKey && e.key.toLowerCase() === "l") {
+    e.preventDefault(); clearTerm();
+  }
+});
+
+/* -------- Boot sequence -------- */
+
+const boot = [
+  `<span class="sep">Booting portfolio.sh ...</span>`,
+  `<span class="sep">[  OK  ] Loaded curiosity.ko</span>`,
+  `<span class="sep">[  OK  ] Mounted /home/abhijith</span>`,
+  `<span class="sep">[  OK  ] Started caffeine.service</span>`,
+  ``,
+  commands.banner(),
+  ``,
+  `Welcome. Type '<span class="k">help</span>' to see what I can do.`,
+  `Try '<span class="k">fastfetch</span>', '<span class="k">projects</span>', '<span class="k">socials</span>', or '<span class="k">matrix</span>'. ✨`,
+  ``
+];
+
+(async function bootSeq(){
+  for (const line of boot) {
+    print(line);
+    await new Promise(r => setTimeout(r, 90));
+  }
+  focusInput();
+})();
+
+/* -------- Close window -------- */
+function closeWin() {
+  document.getElementById("win").style.transition = "transform .3s, opacity .3s";
+  document.getElementById("win").style.transform = "scale(.9)";
+  document.getElementById("win").style.opacity = "0";
+  setTimeout(() => alert("You can't actually close me. Refresh to bring me back."), 350);
+  setTimeout(() => {
+    document.getElementById("win").style.transform = "";
+    document.getElementById("win").style.opacity = "";
+  }, 800);
+}
+
+/* ============================================================
+   MATRIX EASTER EGG
+   ============================================================ */
+const mWrap = document.getElementById("matrix");
+const mCanvas = document.getElementById("mcanvas");
+const mHint = document.getElementById("mhint");
+let mCtx, mAnim, mCols;
+
+function startMatrix() {
+  mWrap.style.display = "block";
+  mHint.style.display = "block";
+  mCanvas.width = window.innerWidth;
+  mCanvas.height = window.innerHeight;
+  mCtx = mCanvas.getContext("2d");
+  const fs = 16;
+  mCols = Math.floor(mCanvas.width / fs);
+  const drops = new Array(mCols).fill(1);
+  const chars = "アイウエオカキクケコサシスセソABCDEF0123456789$#@!<>[]{}".split("");
+  function draw() {
+    mCtx.fillStyle = "rgba(0,0,0,0.06)";
+    mCtx.fillRect(0,0,mCanvas.width,mCanvas.height);
+    mCtx.fillStyle = "#0f0";
+    mCtx.font = fs + "px 'JetBrains Mono', monospace";
+    for (let i = 0; i < drops.length; i++) {
+      const c = chars[Math.floor(Math.random()*chars.length)];
+      mCtx.fillText(c, i*fs, drops[i]*fs);
+      if (drops[i]*fs > mCanvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
+    }
+    mAnim = requestAnimationFrame(draw);
+  }
+  draw();
+}
+function stopMatrix() {
+  cancelAnimationFrame(mAnim);
+  mWrap.style.display = "none";
+  mHint.style.display = "none";
+}
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") stopMatrix();
+});
+window.addEventListener("click", focusInput);
+</script>
+</body>
+</html>
